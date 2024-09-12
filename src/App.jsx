@@ -1,5 +1,6 @@
 // import { useState } from "react";
 import "./App.css";
+import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 
@@ -28,15 +29,17 @@ function App() {
   // };
   return (
     <>
-      <h1>Phonebook</h1>
-      {/* <ContactForm /> */}
-      <SearchBox />
-      <ContactList contacts={contactData} />
-      {/* <form onSubmit={handleSubmit}>
+      <div className="wrapper">
+        <h1>Phonebook</h1>
+        <ContactForm />
+        <SearchBox />
+        <ContactList contacts={contactData} />
+        {/* <form onSubmit={handleSubmit}>
         <input type="text" name="login" />
         <input type="password" name="password" />
         <button type="submit">Login</button>
       </form> */}
+      </div>
     </>
   );
 }
