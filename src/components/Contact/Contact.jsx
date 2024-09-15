@@ -1,6 +1,6 @@
 import { PiPhoneFill } from "react-icons/pi";
 import { IoMdContact } from "react-icons/io";
-import s from "./Contacts.module.css";
+import s from "./Contact.module.css";
 
 const Contact = ({ name, number, onDelete }) => {
   return (

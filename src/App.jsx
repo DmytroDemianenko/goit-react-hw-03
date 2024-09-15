@@ -3,7 +3,7 @@ import "modern-normalize";
 import { nanoid } from "nanoid";
 import "./App.css";
 import ContactForm from "./components/ContactForm/ContactForm";
-import ContactList from "./components/Contacts/ContactList";
+import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 
 const LOCAL_STORAGE_KEY = "contactStorage";
@@ -65,7 +65,7 @@ function App() {
   };
   const handleAddContact = (newContact) => {
     addContact(newContact);
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContact));
+    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
 
     setFilter("");
   };
