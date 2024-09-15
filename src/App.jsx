@@ -40,7 +40,6 @@ function App() {
     }
   }, [contacts]);
 
-  // Функція для додавання нового контакту
   const addContact = (newContact) => {
     setContacts((prevContacts) => [
       ...prevContacts,
@@ -68,9 +67,9 @@ function App() {
     addContact(newContact);
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContact));
 
-    setFilter(""); // Очищення поля пошуку після додавання контакту
+    setFilter("");
   };
-  // Функція для регістру
+
   const filterContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
