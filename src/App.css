@@ -3,23 +3,22 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: black;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+ul {
+  list-style-type: none;
 }
 
 .wrapper {
-  max-width: 1280px;
+  /* min-width: 400px;
+  max-width: 1280px; */
   margin: 0 auto;
-  background-color: rgb(152, 152, 152);
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.pageTitle {
+  color: rgb(9, 6, 6);
+  font-size: bold;
 }

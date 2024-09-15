@@ -1,18 +1,22 @@
 import { PiPhoneFill } from "react-icons/pi";
 import { IoMdContact } from "react-icons/io";
-const Contact = ({ userName, phoneNumber, id }) => {
+import s from "./Contacts.module.css";
+
+const Contact = ({ name, number, onDelete }) => {
   return (
-    <div>
-      <p>
-        <IoMdContact />
-        {userName}
-      </p>
-      <p>
-        <PiPhoneFill />
-        {phoneNumber}
-      </p>
-      <button>Delete</button>
-    </div>
+    <li className={s.contact}>
+      <div>
+        <p className={s.name}>
+          <IoMdContact className={s.svg} />
+          {name}
+        </p>
+        <p className={s.name}>
+          <PiPhoneFill className={s.svg} />
+          {number}
+        </p>
+      </div>
+      <button onClick={onDelete}>Delete</button>
+    </li>
   );
 };
 

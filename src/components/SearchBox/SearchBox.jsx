@@ -1,17 +1,14 @@
-import { useState } from "react";
-
-const SearchBox = () => {
-  const [inputValue, setInputValue] = useState("");
-  console.log(inputValue);
-
-  const handleChange = (evt) => {
-    setInputValue(evt.target.value);
-    // console.log(evt.target.value);
-  };
+import s from "./SearchBox.module.css";
+const SearchBox = ({ value, onChange }) => {
   return (
-    <div>
-      <h2>Find contacts by name</h2>
-      <input type="text" value={inputValue} onChange={handleChange} />
+    <div className={s.wrapper}>
+      <h2 className={s.title}>Find contacts by name</h2>
+      <input
+        className={s.input}
+        type="text"
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 };

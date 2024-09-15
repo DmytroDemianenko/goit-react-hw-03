@@ -1,44 +1,92 @@
-// import { useState } from "react";
+import { useEffect, useState } from "react";
+import "modern-normalize";
+import { nanoid } from "nanoid";
 import "./App.css";
 import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/Contacts/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 
+const LOCAL_STORAGE_KEY = "contactStorage";
+
 function App() {
-  const contactData = [
+  const initialContacts = [
     { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
     { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
     { id: "id-3", name: "Eden Clements", number: "645-17-79" },
     { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
   ];
 
-  // const handleSubmit = (evt) => {
-  //   evt.preventDefault();
+  const [contacts, setContacts] = useState(() => {
+    const storedContacts = JSON.parse(
+      window.localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    return storedContacts ? storedContacts : initialContacts;
+  });
 
-  //   const form = evt.target;
-  //   const { login, password } = form.elements;
+  const [filter, setFilter] = useState("");
 
-  //   // Посилання на DOM-елементи
-  //   console.log(login, password);
+  useEffect(() => {
+    const storedContacts = JSON.parse(
+      window.localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    if (storedContacts) {
+      setContacts(storedContacts);
+    }
+  }, []);
 
-  //   // Значення полів
-  //   console.log(login.value, password.value);
+  useEffect(() => {
+    if (JSON.stringify(contacts) !== JSON.stringify(initialContacts)) {
+      window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
+    }
+  }, [contacts]);
 
-  //   // Скидаємо значення полів після відправки
-  //   form.reset();
-  // };
+  // Функція для додавання нового контакту
+  const addContact = (newContact) => {
+    setContacts((prevContacts) => [
+      ...prevContacts,
+      { id: nanoid(), ...newContact },
+    ]);
+  };
+  const handleDeleteContact = (id) => {
+    setContacts((prevContacts) => {
+      const updatedContacts = prevContacts.filter(
+        (contact) => contact.id !== id
+      );
+
+      if (updatedContacts.length === 0) {
+        window.localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return initialContacts;
+      }
+      return updatedContacts;
+    });
+  };
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+  const handleAddContact = (newContact) => {
+    addContact(newContact);
+    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContact));
+
+    setFilter(""); // Очищення поля пошуку після додавання контакту
+  };
+  // Функція для регістру
+  const filterContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
   return (
     <>
       <div className="wrapper">
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <SearchBox />
-        <ContactList contacts={contactData} />
-        {/* <form onSubmit={handleSubmit}>
-        <input type="text" name="login" />
-        <input type="password" name="password" />
-        <button type="submit">Login</button>
-      </form> */}
+        <h1 className="pageTitle">Phonebook</h1>
+        <ContactForm
+          initialValues={initialContacts}
+          onAddContact={handleAddContact}
+        />
+        <SearchBox value={filter} onChange={handleFilterChange} />
+        <ContactList
+          contacts={filterContacts}
+          onDeleteContact={handleDeleteContact}
+        />
       </div>
     </>
   );
